@@ -130,7 +130,7 @@
     "104": {
       "name": "A733 SoC",
       "description": "瑞芯微 A733 主处理器",
-      "details": "系统核心处理器，提供强大的计算和图形处理能力。\n\n主要特性：\n- ARM Cortex-A73 四核架构\n- 高性能处理能力\n- 集成 Mali-G52 GPU\n- 22nm 制造工艺\n- 支持 4K 视频硬解",
+      "details": "系统核心处理器，提供强大的计算和图形处理能力。\n\n主要特性：\n- ARM Cortex-A73 四核架构\n- 高性能处理能力\n- 集成 Mali-G52 GPU\n- 12nm 制造工艺\n- 支持 4K 视频硬解",
       "type": "处理器",
       "architecture": "ARM Cortex-A73",
       "cores": "4核",

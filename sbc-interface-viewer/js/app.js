@@ -28,10 +28,15 @@ class SBCInterfaceViewer {
                 svgFront: 'boards/a7s/a7s-v.svg',
                 svgBack: 'boards/a7s/a7s-back-v.svg',
                 name: 'A7S'
+            },
+            'a7a': {
+                svgFront: 'boards/a7a/a7a-iv.svg',
+                svgBack: 'boards/a7a/a7a-v.svg',
+                name: 'A7A'
             }
         };
         
-        // 从URL参数获取初始设置
+        // 从 URL 参数获取初始设置
         this.parseURLParams();
         
         this.init();
@@ -39,7 +44,7 @@ class SBCInterfaceViewer {
     
     init() {
         this.bindEvents();
-        // 更新UI以反映当前设置
+        // 更新 UI 以反映当前设置
         document.getElementById('sbc-select').value = this.currentSBC;
         this.loadBoard(); // 加载初始板卡
         this.loadInterfaces();
@@ -47,7 +52,7 @@ class SBCInterfaceViewer {
     }
     
     bindEvents() {
-        // SBC选择器
+        // SBC 选择器
         document.getElementById('sbc-select').addEventListener('change', (e) => {
             this.currentSBC = e.target.value;
             this.isFront = true; // 切换板卡时重置为正面
@@ -76,7 +81,7 @@ class SBCInterfaceViewer {
         const svgObject = document.getElementById('board-svg');
         const sbcInfo = this.sbcData[this.currentSBC];
         
-        // 根据当前面选择SVG文件
+        // 根据当前面选择 SVG 文件
         const svgFile = this.isFront ? sbcInfo.svgFront : sbcInfo.svgBack;
         
         // 更新 SVG 路径
@@ -147,7 +152,7 @@ class SBCInterfaceViewer {
         
         // 创建新的处理函数
         this.handleSVGLoad = () => {
-            // 等待一小段时间确保SVG内容完全加载
+            // 等待一小段时间确保 SVG 内容完全加载
             setTimeout(() => {
                 const svgDoc = svgObject.contentDocument;
                 if (!svgDoc) {
@@ -190,7 +195,7 @@ class SBCInterfaceViewer {
                             
                             console.log(`Element position: x=${x}, y=${y}, width=${width}, height=${height}`);
                             
-                            // 获取SVG的viewBox信息
+                            // 获取 SVG 的 viewBox 信息
                             const svgDoc = element.ownerDocument;
                             const svgRoot = svgDoc.documentElement;
                             const viewBox = svgRoot.getAttribute('viewBox');
@@ -208,7 +213,7 @@ class SBCInterfaceViewer {
                             flashOverlay.style.transition = 'opacity 0.3s ease'; // 添加过渡效果
                             flashOverlay.classList.add('flash-overlay');
                             
-                            // 获取SVG根元素并添加遮罩到最上层
+                            // 获取 SVG 根元素并添加遮罩到最上层
                             svgRoot.appendChild(flashOverlay);
                             
                             console.log('Created overlay:', flashOverlay);
@@ -238,7 +243,7 @@ class SBCInterfaceViewer {
                                     flashOverlay.setAttribute('opacity', '0.7');
                                 }
                                 fadeIn = !fadeIn;
-                            }, 350); // 每350毫秒切换一次
+                            }, 350); // 每 350 毫秒切换一次
                             
                             // 保存当前遮罩引用
                             this.currentFlashOverlay = flashOverlay;
@@ -265,7 +270,7 @@ class SBCInterfaceViewer {
         
         svgObject.addEventListener('load', this.handleSVGLoad);
         
-        // 如果SVG已经加载，手动触发
+        // 如果 SVG 已经加载，手动触发
         if (svgObject.contentDocument) {
             this.handleSVGLoad();
         }
@@ -425,30 +430,30 @@ class SBCInterfaceViewer {
         }
     }
     
-    // 解析URL参数
+    // 解析 URL 参数
     parseURLParams() {
         const urlParams = new URLSearchParams(window.location.search);
         
-        // 获取sbc参数
+        // 获取 sbc 参数
         const sbc = urlParams.get('sbc');
         if (sbc && this.sbcData[sbc]) {
             this.currentSBC = sbc;
         }
         
-        // 获取lang参数
+        // 获取 lang 参数
         const lang = urlParams.get('lang');
         if (lang && (lang === 'zh' || lang === 'en')) {
             this.currentLang = lang;
         }
         
-        // 获取side参数（front/back）
+        // 获取 side 参数（front/back）
         const side = urlParams.get('side');
         if (side === 'back') {
             this.isFront = false;
         }
     }
     
-    // 更新URL
+    // 更新 URL
     updateURL() {
         const url = new URL(window.location);
         url.searchParams.set('sbc', this.currentSBC);
