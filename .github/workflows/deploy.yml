@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Build
+      run: |
+        # 创建部署目录
+        mkdir -p dist
+        
+        # 复制所有必要文件到dist目录
+        cp -r sbc-interface-viewer/* dist/
+        cp README.md dist/
+        
+        # 修改index.html中的相对路径为绝对路径
+        sed -i 's|href="css/style.css"|href="./css/style.css"|g' dist/index.html
+        sed -i 's|src="js/app.js|src="./js/app.js|g' dist/index.html
+        sed -i 's|data="boards/|data="./boards/|g' dist/index.html
+        sed -i 's|fetch(`data/|fetch(`./data/|g' dist/js/app.js
+        
+        # 创建.nojekyll文件（GitHub Pages不需要Jekyll处理）
+        touch dist/.nojekyll
+        
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./dist
+        
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

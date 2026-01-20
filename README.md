@@ -1,6 +1,6 @@
 # SBC Interface Viewer
 
-一个用于查看单板计算机接口信息的交互式Web应用。
+一个用于查看单板计算机接口信息的交互式 Web 应用。
 
 ## 功能特性
 
@@ -8,7 +8,7 @@
 - 🔄 **双面视图** - 支持查看板卡正反面
 - 🌐 **多语言支持** - 支持中文和英文
 - 📱 **响应式设计** - 适配不同屏幕尺寸
-- 🔗 **URL参数支持** - 可通过URL直接访问特定板卡
+- 🔗 **URL 参数支持** - 可通过 URL 直接访问特定板卡
 - ✨ **视觉反馈** - 点击时有闪烁动画效果
 
 ## 支持的板卡
@@ -19,16 +19,23 @@
 
 ## 快速开始
 
-### 环境要求
+### 在线体验
+
+无需安装，直接访问在线版本：
+- ** GitHub Pages 部署版：https://xzl01.github.io/board-out/
+
+### 本地运行
+
+#### 环境要求
 
 - 现代浏览器（Chrome、Firefox、Safari、Edge）
-- 本地HTTP服务器（用于加载SVG文件）
+- 本地 HTTP 服务器（用于加载 SVG 文件）
 
-### 安装运行
+#### 安装运行
 
 1. 克隆仓库
 ```bash
-git clone https://github.com/yourusername/board-out.git
+git clone https://github.com/xzl01/board-out.git
 cd board-out
 ```
 
@@ -49,9 +56,9 @@ php -S localhost:8081
 http://localhost:8081
 ```
 
-## URL参数
+## URL 参数
 
-可以通过URL参数直接访问特定页面：
+可以通过 URL 参数直接访问特定页面：
 
 - `sbc` - 板卡型号（rock5t, rock5b, rpi4b）
 - `lang` - 语言（zh, en）
@@ -86,11 +93,11 @@ board-out/
 ### 添加新板卡
 
 1. 在 `boards/` 目录下创建板卡文件夹
-2. 添加正面和反面SVG文件
+2. 添加正面和反面 SVG 文件
 3. 在 `data/zh/` 和 `data/en/` 中添加接口数据
 4. 在 `js/app.js` 的 `sbcData` 中添加配置
 
-### SVG文件要求
+### SVG 文件要求
 
 - 必须包含 `click-layer` 图层
 - 接口区域需要添加 `data-id` 属性
@@ -98,7 +105,7 @@ board-out/
 
 ### 数据格式
 
-接口数据使用JSON格式，包含以下字段：
+接口数据使用 JSON 格式，包含以下字段：
 - `name` - 接口名称
 - `description` - 简短描述
 - `details` - 详细信息
@@ -120,12 +127,44 @@ board-out/
 ## 致谢
 
 - 感谢所有贡献者
-- SVG图标来源于 [Font Awesome](https://fontawesome.com/)
-- 使用了现代Web技术构建
+- SVG 图标来源于 [Font Awesome](https://fontawesome.com/)
+- 使用了现代 Web 技术构建
 
 ## 联系方式
 
 如有问题或建议，请通过以下方式联系：
 
-- 提交 [Issue](https://github.com/yourusername/board-out/issues)
+- 提交 [Issue](https://github.com/xzl01/board-out/issues)
 - 发送邮件至：your.email@example.com
+
+## 部署
+
+### GitHub Pages 自动部署
+
+本项目使用 GitHub Actions 自动部署到 GitHub Pages：
+
+1. **触发条件**：
+   - 推送到 `main` 分支
+   - 创建针对 `main` 分支的 Pull Request
+
+2. **部署流程**：
+   - 自动构建项目
+   - 复制文件到部署目录
+   - 发布到 GitHub Pages
+
+3. **访问地址**：
+   - 生产环境：https://xzl01.github.io/board-out/
+   - PR 预览：每次 PR 都会生成预览链接
+
+### 手动部署
+
+如需手动部署到其他平台：
+
+1. 构建：
+```bash
+mkdir dist
+cp -r sbc-interface-viewer/* dist/
+cp README.md dist/
+```
+
+2. 部署到任何静态文件服务器即可
