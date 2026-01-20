@@ -18,6 +18,10 @@ class SVGAnnotator {
         this.maxScale = 5;
         this.scaleStep = 0.2;
         
+        // 标号相关
+        this.nextNumber = 1;
+        this.autoIncrement = true;
+        
         this.initializeEventListeners();
         this.updateModeHint();
     }
@@ -91,7 +95,12 @@ class SVGAnnotator {
         
         // 重置标注
         this.annotations = [];
+        this.selectedAnnotation = null;
         this.updateAnnotationsList();
+        
+        // 重置标号
+        this.nextNumber = 1;
+        document.getElementById('start-number').value = 1;
     }
     
     handleSVGClick(e) {
@@ -236,11 +245,17 @@ class SVGAnnotator {
     }
     
     createAnnotation(x, y) {
-        // 找到最小的可用编号
-        const usedNumbers = this.annotations.map(a => a.number);
-        let newNumber = 1;
-        while (usedNumbers.includes(newNumber)) {
-            newNumber++;
+        // 获取下一个标号
+        let newNumber;
+        if (this.autoIncrement) {
+            // 自动递增模式：使用 nextNumber，然后递增
+            newNumber = this.nextNumber;
+            this.nextNumber++;
+            // 更新 UI 中的显示
+            document.getElementById('start-number').value = this.nextNumber;
+        } else {
+            // 手动模式：使用当前输入的值，不递增
+            newNumber = parseInt(document.getElementById('start-number').value) || 1;
         }
         
         const annotation = {
@@ -560,6 +575,10 @@ class SVGAnnotator {
         // 清除 SVG 中的所有标注
         document.querySelectorAll('.annotation-group').forEach(g => g.remove());
         
+        // 重置标号
+        this.nextNumber = 1;
+        document.getElementById('start-number').value = 1;
+        
         this.updateAnnotationsList();
     }
     
@@ -849,6 +868,47 @@ class SVGAnnotator {
         
         alert('透明标号 SVG 已导出！\n\n特点：\n- 标号对用户不可见\n- 点击区域仍然可以交互\n- 适合用于交互式展示');
     }
+    
+    setStartNumber(number) {
+        this.nextNumber = number;
+        document.getElementById('start-number').value = number;
+        
+        // 显示提示信息
+        const hint = document.createElement('div');
+        hint.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        `;
+        hint.textContent = `起始标号已设置为：${number}`;
+        document.body.appendChild(hint);
+        
+        // 3 秒后自动移除提示
+        setTimeout(() => {
+            hint.remove();
+        }, 3000);
+    }
+    
+    setAutoIncrement(enabled) {
+        this.autoIncrement = enabled;
+        if (enabled) {
+            // 如果启用自动递增，计算下一个可用的编号
+            const usedNumbers = this.annotations.map(a => a.number);
+            let nextNum = this.nextNumber;
+            while (usedNumbers.includes(nextNum)) {
+                nextNum++;
+            }
+            this.nextNumber = nextNum;
+            document.getElementById('start-number').value = nextNum;
+        }
+    }
 }
 
 // 全局函数，供 HTML 调用
@@ -872,8 +932,39 @@ function exportInvisibleSVG() {
     svgAnnotator.exportInvisibleSVG();
 }
 
+function setStartNumber() {
+    const input = document.getElementById('start-number');
+    const value = parseInt(input.value);
+    
+    if (!isNaN(value) && value >= 1 && value <= 999) {
+        svgAnnotator.setStartNumber(value);
+    } else {
+        alert('请输入有效的标号（1-999）');
+        input.value = svgAnnotator.nextNumber;
+    }
+}
+
 // 初始化
 let svgAnnotator;
 document.addEventListener('DOMContentLoaded', function() {
     svgAnnotator = new SVGAnnotator();
+    
+    // 初始化标号设置
+    document.getElementById('start-number').value = svgAnnotator.nextNumber;
+    document.getElementById('auto-increment').checked = svgAnnotator.autoIncrement;
+    
+    // 监听自动递增复选框
+    document.getElementById('auto-increment').addEventListener('change', function(e) {
+        svgAnnotator.setAutoIncrement(e.target.checked);
+    });
+    
+    // 监听起始标号输入框
+    document.getElementById('start-number').addEventListener('change', function(e) {
+        const value = parseInt(e.target.value);
+        if (!isNaN(value) && value >= 1 && value <= 999) {
+            if (!svgAnnotator.autoIncrement) {
+                svgAnnotator.nextNumber = value;
+            }
+        }
+    });
 });

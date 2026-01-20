@@ -131,6 +131,49 @@ body {
     background: #0984e3;
 }
 
+.btn-small {
+    padding: 6px 12px;
+    font-size: 13px;
+}
+
+.number-settings {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.number-settings h4 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #495057;
+}
+
+.number-settings .input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.number-settings label {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.number-settings input[type="number"] {
+    width: 80px;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.number-settings input[type="checkbox"] {
+    margin-right: 6px;
+}
+
 input[type="file"] {
     display: none;
 }
