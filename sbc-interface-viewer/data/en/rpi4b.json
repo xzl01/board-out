@@ -1,0 +1,81 @@
+{
+  "interfaces": {
+    "1": {
+      "name": "GPIO 40-pin",
+      "description": "40-pin GPIO header",
+      "details": "The Raspberry Pi 4B features a 40-pin GPIO header for connecting various peripherals and sensors.\n\nPinout:\n- 40 pins total\n- 28 GPIO pins\n- 2x 5V power pins\n- 8x Ground pins\n- 2x 3.3V power pins\n- I2C, SPI, UART, PWM interfaces\n- HAT ID pins\n\nCompatible with Raspberry Pi HATs and add-on boards.",
+      "voltage": "3.3V/5V",
+      "compatibility": "Raspberry Pi HAT compatible"
+    },
+    "2": {
+      "name": "Micro HDMI 1",
+      "description": "Micro HDMI output port 1",
+      "details": "First micro HDMI output port for connecting external displays.\n\nSpecifications:\n- Micro HDMI connector\n- Supports up to 4K@60Hz\n- HDCP 2.2 support\n- Audio output included\n\nCan be used simultaneously with HDMI 2 for dual displays.",
+      "type": "Micro HDMI",
+      "max_resolution": "4K@60Hz"
+    },
+    "3": {
+      "name": "Micro HDMI 2",
+      "description": "Micro HDMI output port 2",
+      "details": "Second micro HDMI output port for dual display setup.\n\nSpecifications:\n- Micro HDMI connector\n- Supports up to 4K@60Hz\n- HDCP 2.2 support\n- Audio output included\n\nAllows for dual independent displays.",
+      "type": "Micro HDMI",
+      "max_resolution": "4K@60Hz"
+    },
+    "4": {
+      "name": "USB 3.0",
+      "description": "USB 3.0 ports",
+      "details": "Two USB 3.0 ports for high-speed peripherals.\n\nSpecifications:\n- 2x USB 3.0 Type-A ports\n- 5Gbps transfer speed\n- Backward compatible with USB 2.0\n- Provides up to 1.2A per port\n\nIdeal for external storage, high-speed devices.",
+      "type": "USB 3.0 Type-A x2",
+      "speed": "5Gbps"
+    },
+    "5": {
+      "name": "USB 2.0",
+      "description": "USB 2.0 ports",
+      "details": "Two USB 2.0 ports for general peripherals.\n\nSpecifications:\n- 2x USB 2.0 Type-A ports\n- 480Mbps transfer speed\n- Provides up to 1.2A per port\n\nSuitable for keyboards, mice, and other accessories.",
+      "type": "USB 2.0 Type-A x2",
+      "speed": "480Mbps"
+    },
+    "6": {
+      "name": "Gigabit Ethernet",
+      "description": "Wired network interface",
+      "details": "Gigabit Ethernet port for wired network connection.\n\nSpecifications:\n- 10/100/1000Mbps auto-sensing\n- RJ45 connector\n- PoE support with HAT\n- Wake-on-LAN support\n\nProvides stable high-speed network connection.",
+      "type": "RJ45 Gigabit Ethernet",
+      "speed": "10/100/1000Mbps"
+    },
+    "7": {
+      "name": "Camera/CDSI",
+      "description": "Camera and DSI interface",
+      "details": "15-pin MIPI CSI-2 interface for camera modules.\n\nSpecifications:\n- MIPI CSI-2 interface\n- 2-lane configuration\n- Supports up to 1080p@30fps\n- Compatible with Pi cameras\n\nUsed for connecting Raspberry Pi camera modules.",
+      "type": "15-pin MIPI CSI-2",
+      "max_resolution": "1080p@30fps"
+    },
+    "8": {
+      "name": "Display/DSI",
+      "description": "Display and DSI interface",
+      "details": "15-pin MIPI DSI interface for displays.\n\nSpecifications:\n- MIPI DSI interface\n- 2-lane configuration\n- Supports up to 1080p@60fps\n- Touch panel support\n\nFor connecting DSI compatible displays.",
+      "type": "15-pin MIPI DSI",
+      "max_resolution": "1080p@60fps"
+    },
+    "9": {
+      "name": "3.5mm AV",
+      "description": "Audio/Video output jack",
+      "details": "4-pole 3.5mm jack for audio and composite video.\n\nFeatures:\n- Stereo audio output\n- Composite video output\n- Microphone input on newer models\n- Compatible with standard audio accessories\n\nNote: Video output removed on Pi 4.",
+      "type": "3.5mm 4-pole jack",
+      "function": "Audio output"
+    },
+    "10": {
+      "name": "USB-C Power",
+      "description": "USB-C power input",
+      "details": "USB-C port for power delivery.\n\nSpecifications:\n- USB-C power input\n- 5V @ 3A minimum\n- Supports USB-PD\n- Power delivery negotiation\n\nRequires official 5V 3A USB-C power supply.",
+      "type": "USB-C Power Input",
+      "power": "5V 3A minimum"
+    },
+    "11": {
+      "name": "Status LEDs",
+      "description": "Power and activity indicators",
+      "details": "LED indicators for system status.\n\nLED functions:\n- PWR: Power status (green)\n- ACT: Disk activity (green)\n- FDX: Full duplex (green)\n- LNK: Link status (green)\n- 100: 100Mbps link (yellow/amber)\n\nProvides visual feedback for system status.",
+      "type": "Status LEDs",
+      "count": "5 LEDs"
+    }
+  }
+}

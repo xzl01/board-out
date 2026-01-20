@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROCK 5B+ Interface Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #40A778 0%, #2d7a57 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        
+        .container {
+            display: flex;
+            height: calc(100vh - 100px);
+            max-width: 1600px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        
+        .left-panel {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .right-panel {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .svg-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: auto;
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+                
+        .interface-info {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .interface-info h2 {
+            color: #40A778;
+            font-size: 24px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .interface-info .subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .interface-info .details {
+            line-height: 1.6;
+            white-space: pre-wrap;
+            margin-bottom: 20px;
+        }
+        
+        .specs {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .specs h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 500;
+            color: #666;
+        }
+        
+        .spec-value {
+            color: #333;
+        }
+        
+        .welcome-message {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+        }
+        
+        .welcome-message h2 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f7f4;
+            border-radius: 8px;
+        }
+        
+        .legend h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #40A778;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px 0;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .legend-number {
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .left-panel, .right-panel {
+                min-height: 500px;
+            }
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        
+        .lang-btn.active {
+            background-color: #2d7a57;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>ROCK 5B+ Interface Viewer</h1>
+                <p>点击左侧 SVG 图中的红色数字编号，查看对应的接口详细信息</p>
+            </div>
+            <div class="language-switcher">
+                <button id="lang-zh" class="lang-btn active">中文</button>
+                <button id="lang-en" class="lang-btn">English</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="left-panel">
+            <div class="svg-container">
+                <object id="board-svg" data="rock5b-plus-annotated.svg" type="image/svg+xml" width="100%" height="100%" style="max-width: 767px; max-height: 614px;">
+                    Your browser does not support SVG.
+                </object>
+            </div>
+            <div class="legend">
+                <h3>接口编号说明</h3>
+                <div class="legend-item">
+                    <div class="legend-number">1</div>
+                    <span>GPIO 40-pin</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">2</div>
+                    <span>eMMC Socket</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">3-4</div>
+                    <span>MIPI CSI Camera</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">5</div>
+                    <span>MIPI DSI Display</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">6-7</div>
+                    <span>PCIe M.2 Slots</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">8</div>
+                    <span>Gigabit Ethernet</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">9-11</div>
+                    <span>USB Ports</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">12</div>
+                    <span>HDMI Output</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">13</div>
+                    <span>DC Power Input</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">14</div>
+                    <span>Maskrom Button</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number">15</div>
+                    <span>LED Indicators</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-panel" id="info-panel">
+            <div class="welcome-message">
+                <h2>欢迎使用 ROCK 5B+ 接口查看器</h2>
+                <p>请点击左侧电路板上的红色数字编号，查看对应接口的详细信息</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 当前语言
+        let currentLang = 'zh';
+        let interfaces = null;
+        
+        // 加载接口数据
+        function loadInterfaces(lang = 'zh') {
+            const filename = lang === 'zh' ? 'interfaces-zh.json' : 'interfaces-en.json';
+            fetch(filename)
+                .then(response => response.json())
+                .then(data => {
+                    interfaces = data.interfaces;
+                })
+                .catch(error => console.error('Error loading interfaces:', error));
+        }
+        
+        // 初始加载中文
+        loadInterfaces('zh');
+        
+        // 等待 SVG 加载完成
+        window.addEventListener('load', function() {
+            const svgObject = document.getElementById('board-svg');
+            svgObject.addEventListener('load', function() {
+                const svgDoc = svgObject.contentDocument;
+                
+                // 处理点击事件
+                const clickLayer = svgDoc.getElementById('click-layer');
+                if (clickLayer) {
+                    clickLayer.querySelectorAll('*').forEach(element => {
+                        element.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const id = this.getAttribute('data-id');
+                            showInterfaceInfo(id);
+                        });
+                        
+                        // 添加 hover 效果
+                        element.addEventListener('mouseenter', function() {
+                            this.style.opacity = '0.2';
+                            this.style.fill = '#40A778';
+                        });
+                        
+                        element.addEventListener('mouseleave', function() {
+                            this.style.opacity = '0';
+                            this.style.fill = 'white';
+                        });
+                    });
+                }
+            });
+        });
+        
+        // 显示接口信息
+        function showInterfaceInfo(id) {
+            const interface = interfaces[id];
+            if (!interface) return;
+            
+            const infoPanel = document.getElementById('info-panel');
+            infoPanel.innerHTML = `
+                <div class="interface-info">
+                    <h2>${interface.name}</h2>
+                    <div class="subtitle">接口编号：${id}</div>
+                    <div class="details">${interface.details}</div>
+                    
+                    <div class="specs">
+                        <h3>技术规格</h3>
+                        ${interface.type ? `<div class="spec-item">
+                            <span class="spec-label">类型</span>
+                            <span class="spec-value">${interface.type}</span>
+                        </div>` : ''}
+                        ${interface.voltage ? `<div class="spec-item">
+                            <span class="spec-label">电压</span>
+                            <span class="spec-value">${interface.voltage}</span>
+                        </div>` : ''}
+                        ${interface.speed ? `<div class="spec-item">
+                            <span class="spec-label">速度</span>
+                            <span class="spec-value">${interface.speed}</span>
+                        </div>` : ''}
+                        ${interface.max_resolution ? `<div class="spec-item">
+                            <span class="spec-label">最大分辨率</span>
+                            <span class="spec-value">${interface.max_resolution}</span>
+                        </div>` : ''}
+                        ${interface.capacity ? `<div class="spec-item">
+                            <span class="spec-label">容量</span>
+                            <span class="spec-value">${interface.capacity}</span>
+                        </div>` : ''}
+                        ${interface.interface ? `<div class="spec-item">
+                            <span class="spec-label">接口</span>
+                            <span class="spec-value">${interface.interface}</span>
+                        </div>` : ''}
+                        ${interface.compatibility ? `<div class="spec-item">
+                            <span class="spec-label">兼容性</span>
+                            <span class="spec-value">${interface.compatibility}</span>
+                        </div>` : ''}
+                        ${interface.function ? `<div class="spec-item">
+                            <span class="spec-label">功能</span>
+                            <span class="spec-value">${interface.function}</span>
+                        </div>` : ''}
+                        ${interface.count ? `<div class="spec-item">
+                            <span class="spec-label">数量</span>
+                            <span class="spec-value">${interface.count}</span>
+                        </div>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 语言切换事件
+        document.getElementById('lang-zh').addEventListener('click', function() {
+            if (currentLang !== 'zh') {
+                currentLang = 'zh';
+                document.getElementById('lang-zh').classList.add('active');
+                document.getElementById('lang-en').classList.remove('active');
+                loadInterfaces('zh');
+                // 更新页面标题和描述
+                document.querySelector('.header h1').textContent = 'ROCK 5B+ 接口查看器';
+                document.querySelector('.header p').textContent = '点击左侧 SVG 图中的红色数字编号，查看对应的接口详细信息';
+                document.querySelector('.welcome-message h2').textContent = '欢迎使用 ROCK 5B+ 接口查看器';
+                document.querySelector('.welcome-message p').textContent = '请点击左侧电路板上的红色数字编号，查看对应接口的详细信息';
+                document.documentElement.lang = 'zh-CN';
+            }
+        });
+        
+        document.getElementById('lang-en').addEventListener('click', function() {
+            if (currentLang !== 'en') {
+                currentLang = 'en';
+                document.getElementById('lang-en').classList.add('active');
+                document.getElementById('lang-zh').classList.remove('active');
+                loadInterfaces('en');
+                // 更新页面标题和描述
+                document.querySelector('.header h1').textContent = 'ROCK 5B+ Interface Viewer';
+                document.querySelector('.header p').textContent = 'Click the red numbers on the SVG diagram to view interface details';
+                document.querySelector('.welcome-message h2').textContent = 'Welcome to ROCK 5B+ Interface Viewer';
+                document.querySelector('.welcome-message p').textContent = 'Please click the red numbered markers on the board to view detailed interface information';
+                document.documentElement.lang = 'en';
+            }
+        });
+    </script>
+</body>
+</html>

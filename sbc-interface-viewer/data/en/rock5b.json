@@ -1,0 +1,110 @@
+{
+  "interfaces": {
+    "1": {
+      "name": "GPIO 40-pin",
+      "description": "40-pin GPIO header compatible with Raspberry Pi",
+      "details": "The ROCK 5B provides a 40-pin GPIO header that is compatible with Raspberry Pi. It includes GPIO, I2C, SPI, UART, PWM, and ADC functions.\n\nPinout:\n- 3.3V, 5V power pins\n- GPIO pins (up to 28 GPIOs available)\n- I2C interfaces (I2C0, I2C1, I2C2)\n- SPI interfaces (SPI0, SPI1)\n- UART interfaces (UART0, UART1, UART2, UART3)\n- PWM outputs\n- ADC inputs (SARADC)\n\nFor detailed pin mapping, please refer to the GPIO pinout diagram in the documentation.",
+      "voltage": "3.3V logic levels",
+      "compatibility": "Raspberry Pi compatible"
+    },
+    "2": {
+      "name": "eMMC Socket",
+      "description": "Onboard eMMC socket for storage expansion",
+      "details": "The ROCK 5B features an eMMC socket that supports eMMC 5.1 storage modules. This provides high-speed storage directly on the board.\n\nSpecifications:\n- Supports eMMC 5.1 standard\n- Transfer rates up to 400MB/s\n- Available in various capacities (32GB, 64GB, 128GB)\n- Bootable storage option\n\nNote: The eMMC module is optional and can be purchased separately.",
+      "type": "eMMC 5.1 socket",
+      "capacity": "32GB/64GB/128GB options"
+    },
+    "3": {
+      "name": "MIPI CSI CAM0",
+      "description": "MIPI CSI-2 camera interface",
+      "details": "MIPI CSI-2 interface for connecting camera modules. Supports high-speed video input.\n\nSpecifications:\n- 4-lane MIPI CSI-2\n- Supports up to 4K resolution\n- Compatible with standard MIPI camera modules\n- Data rate: up to 6Gbps\n\nUsed for connecting MIPI CSI camera modules for computer vision applications.",
+      "type": "4-lane MIPI CSI-2",
+      "max_resolution": "4K"
+    },
+    "4": {
+      "name": "MIPI CSI CAM1",
+      "description": "Second MIPI CSI-2 camera interface",
+      "details": "Second MIPI CSI-2 interface for dual camera setups.\n\nSpecifications:\n- 4-lane MIPI CSI-2\n- Supports up to 4K resolution\n- Can be used simultaneously with CAM0\n- Ideal for stereo vision applications\n\nAllows for dual camera configurations for 3D vision and depth sensing.",
+      "type": "4-lane MIPI CSI-2",
+      "max_resolution": "4K"
+    },
+    "5": {
+      "name": "MIPI DSI",
+      "description": "MIPI DSI display interface",
+      "details": "MIPI DSI interface for connecting display panels.\n\nSpecifications:\n- 4-lane MIPI DSI\n- Supports up to 1080p resolution\n- Compatible with MIPI DSI displays\n- Touch panel support through I2C\n\nUsed for connecting LCD displays directly to the board without HDMI.",
+      "type": "4-lane MIPI DSI",
+      "max_resolution": "1080p"
+    },
+    "6": {
+      "name": "PCIe M.2 Key M",
+      "description": "M.2 Key M slot for NVMe SSD",
+      "details": "PCIe M.2 Key M slot supporting NVMe SSDs for high-speed storage.\n\nSpecifications:\n- PCIe 3.0 x4 interface\n- Supports NVMe SSDs\n- Up to 2TB capacity supported\n- Transfer rates up to 4GB/s\n\nProvides ultra-fast storage for the operating system and applications.",
+      "type": "M.2 Key M (2280)",
+      "interface": "PCIe 3.0 x4"
+    },
+    "7": {
+      "name": "PCIe B Key",
+      "description": "M.2 Key B slot for WiFi/Bluetooth modules",
+      "details": "M.2 Key B slot designed for WiFi and Bluetooth modules.\n\nSpecifications:\n- PCIe 2.0 x1 or USB 2.0 interface\n- Supports standard WiFi/BT modules\n- Compatible with Intel and AMD WiFi cards\n- Includes antenna connectors\n\nUsed for adding wireless connectivity to the board.",
+      "type": "M.2 Key B",
+      "interface": "PCIe 2.0 x1 / USB 2.0"
+    },
+    "8": {
+      "name": "Gigabit Ethernet",
+      "description": "10/100/1000Mbps Ethernet port",
+      "details": "Gigabit Ethernet port for wired network connectivity.\n\nSpecifications:\n- 10/100/1000 Mbps auto-negotiation\n- RJ45 connector\n- Supports Wake-on-LAN\n- IPv4/IPv6 support\n\nProvides reliable wired network connection for the board.",
+      "type": "RJ45 Gigabit Ethernet",
+      "speed": "10/100/1000 Mbps"
+    },
+    "9": {
+      "name": "USB 3.0 Port 1",
+      "description": "USB 3.0 Type-A port",
+      "details": "High-speed USB 3.0 port for connecting peripherals.\n\nSpecifications:\n- USB 3.0 SuperSpeed\n- Data rate up to 5Gbps\n- Backward compatible with USB 2.0/1.1\n- Type-A connector\n\nCan be used for external storage, cameras, and other high-speed devices.",
+      "type": "USB 3.0 Type-A",
+      "speed": "5Gbps"
+    },
+    "10": {
+      "name": "USB 3.0 Port 2",
+      "description": "Second USB 3.0 Type-A port",
+      "details": "Second high-speed USB 3.0 port.\n\nSpecifications:\n- USB 3.0 SuperSpeed\n- Data rate up to 5Gbps\n- Backward compatible with USB 2.0/1.1\n- Type-A connector\n\nProvides additional high-speed connectivity for peripherals.",
+      "type": "USB 3.0 Type-A",
+      "speed": "5Gbps"
+    },
+    "11": {
+      "name": "USB 2.0 Port",
+      "description": "USB 2.0 Type-A port",
+      "details": "Standard USB 2.0 port for general peripherals.\n\nSpecifications:\n- USB 2.0 High Speed\n- Data rate up to 480Mbps\n- Backward compatible with USB 1.1\n- Type-A connector\n\nSuitable for keyboards, mice, and other low-speed devices.",
+      "type": "USB 2.0 Type-A",
+      "speed": "480Mbps"
+    },
+    "12": {
+      "name": "HDMI Output",
+      "description": "HDMI video output port",
+      "details": "HDMI port for connecting external displays.\n\nSpecifications:\n- HDMI 2.0\n- Supports up to 4K@60Hz\n- Audio output supported\n- HDCP 2.2 compliant\n\nUsed for connecting monitors, TVs, and projectors.",
+      "type": "HDMI 2.0 Type-A",
+      "max_resolution": "4K@60Hz"
+    },
+    "13": {
+      "name": "DC Power Input",
+      "description": "DC power jack for main power supply",
+      "details": "DC power input jack for supplying power to the board.\n\nSpecifications:\n- Input voltage: 12V DC\n- Minimum current: 3A\n- Recommended power supply: 12V/5A\n- Barrel connector: 5.5mm x 2.5mm\n\nProvides main power to the ROCK 5B board.",
+      "type": "DC Barrel Jack",
+      "voltage": "12V DC",
+      "current": "3A minimum"
+    },
+    "14": {
+      "name": "Maskrom Button",
+      "description": "Maskrom button for firmware recovery",
+      "details": "Maskrom button used for entering maskrom mode for firmware flashing and recovery.\n\nUsage:\n- Press and hold while powering on to enter maskrom mode\n- Used for firmware recovery and flashing\n- Required when updating bootloader\n- Can be used with RKDevTool for firmware operations\n\nImportant: Only use when instructed for firmware updates.",
+      "type": "Push button",
+      "function": "Firmware recovery"
+    },
+    "15": {
+      "name": "LED Indicators",
+      "description": "Status LED indicators",
+      "details": "LED indicators showing board status and activity.\n\nLEDs included:\n- Power LED: Indicates power is applied\n- Activity LED: Shows system activity\n- Network LED: Indicates network activity\n- User LED: Programmable by user applications\n\nThese LEDs provide visual feedback about the board's operational status.",
+      "type": "Status LEDs",
+      "count": "Multiple"
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "interfaces": {
+    "1": {
+      "name": "GPIO 40-pin",
+      "description": "40-pin GPIO header compatible with Raspberry Pi",
+      "details": "The ROCK 5T provides a 40-pin GPIO header that is compatible with Raspberry Pi. It includes GPIO, I2C, SPI, UART, PWM, and ADC functions.\n\nPinout:\n- 3.3V, 5V power pins\n- GPIO pins (up to 28 GPIOs available)\n- I2C interfaces (I2C0, I2C1, I2C2)\n- SPI interfaces (SPI0, SPI1)\n- UART interfaces (UART0, UART1, UART2, UART3)\n- PWM outputs\n- ADC inputs (SARADC)\n\nFor detailed pin mapping, please refer to the GPIO pinout diagram in the documentation.",
+      "voltage": "3.3V logic levels",
+      "compatibility": "Raspberry Pi compatible"
+    },
+    "2": {
+      "name": "LED Indicators",
+      "description": "Power status and system activity indicators",
+      "details": "Onboard LED indicators for displaying system status.\n\nLED Description:\n- Green LED: Power indicator (steady light means normal power)\n- Blue LED: System activity indicator (blinking means normal operation)\n\nThese LEDs provide visual feedback of system status.",
+      "type": "Status LEDs",
+      "function": "Power/System Status"
+    },
+    "3": {
+      "name": "USB Type-C",
+      "description": "DP display output and USB 3.0 OTG port",
+      "details": "Multi-function USB Type-C port supporting video output and data transfer.\n\nFeatures:\n- DisplayPort video output (up to 4K@60Hz)\n- USB 3.0 OTG data transfer\n- Reversible design\n- Supports simultaneous video and data transmission\n\nCan be used for connecting displays or as a USB data port.",
+      "type": "USB Type-C",
+      "specification": "DP 1.4 + USB 3.0 OTG",
+      "max_resolution": "4K@60Hz"
+    },
+    "4": {
+      "name": "SPI Disable Jumper",
+      "description": "SPI function disable jumper",
+      "details": "Jumper cap for disabling SPI function.\n\nPurpose:\n- Disable SPI interface function\n- Resolve pin conflicts\n- Function configuration for specific application scenarios\n\nPlease configure according to the manual when needed.",
+      "type": "Jumper Cap",
+      "function": "SPI Function Control"
+    },
+    "5": {
+      "name": "3.5mm Audio Jack",
+      "description": "Audio input/output interface",
+      "details": "Standard 3.5mm audio interface.\n\nFunctions:\n- Stereo output\n- Microphone input\n- Supports HD audio codec\n- Suitable for headphones, speakers, and other audio devices\n\nProvides high-quality audio input and output.",
+      "type": "3.5mm Audio Jack",
+      "function": "Audio Input/Output"
+    },
+    "6": {
+      "name": "Power Button",
+      "description": "System power control button",
+      "details": "Onboard power button for system control.\n\nFunctions:\n- Long press: Power on/off\n- Short press: Wake up system\n- LED indicator feedback\n- Supports system sleep/wake\n\nProvides convenient system power management.",
+      "type": "Push Button",
+      "function": "Power Control"
+    },
+    "7": {
+      "name": "PoE Module Connector",
+      "description": "Power over Ethernet module connector",
+      "details": "For connecting PoE (Power over Ethernet) module.\n\nFeatures:\n- Supports IEEE 802.3af/at standards\n- Provides Ethernet power supply\n- Simplifies wiring requirements\n- Suitable for remote deployment scenarios\n\nRequires additional PoE module support.",
+      "type": "PoE Connector",
+      "standard": "IEEE 802.3af/at"
+    },
+    "8": {
+      "name": "HDMI Output",
+      "description": "High-definition video output interface",
+      "details": "HDMI video output port.\n\nSpecifications:\n- HDMI 2.0 standard\n- Supports 4K@60Hz output\n- Audio transmission support\n- HDCP 2.2 compliant\n\nUsed for connecting monitors, TVs, and other display devices.",
+      "type": "HDMI 2.0",
+      "max_resolution": "4K@60Hz"
+    },
+    "9": {
+      "name": "USB 3.0 Port",
+      "description": "High-speed USB data interface",
+      "details": "USB 3.0 high-speed data interface.\n\nSpecifications:\n- USB 3.0 SuperSpeed\n- Data rate up to 5Gbps\n- Backward compatible with USB 2.0/1.1\n- Type-A connector\n\nSuitable for external storage, cameras, and other high-speed devices.",
+      "type": "USB 3.0 Type-A",
+      "speed": "5Gbps"
+    },
+    "10": {
+      "name": "USB 2.0 Port",
+      "description": "Standard USB data interface",
+      "details": "USB 2.0 standard data interface.\n\nSpecifications:\n- USB 2.0 High Speed\n- Data rate up to 480Mbps\n- Backward compatible with USB 1.1\n- Type-A connector\n\nSuitable for keyboards, mice, and other low-speed devices.",
+      "type": "USB 2.0 Type-A",
+      "speed": "480Mbps"
+    },
+    "11": {
+      "name": "Gigabit Ethernet",
+      "description": "Wired network interface",
+      "details": "Gigabit Ethernet port.\n\nSpecifications:\n- 10/100/1000Mbps auto-negotiation\n- RJ45 connector\n- Supports Wake-on-LAN\n- IPv4/IPv6 support\n\nProvides stable wired network connection.",
+      "type": "RJ45 Gigabit Ethernet",
+      "speed": "10/100/1000Mbps"
+    },
+    "12": {
+      "name": "eMMC Socket",
+      "description": "Onboard eMMC storage expansion",
+      "details": "eMMC 5.1 storage module socket.\n\nSpecifications:\n- Supports eMMC 5.1 standard\n- Transfer rates up to 400MB/s\n- Available in various capacities (32GB, 64GB, 128GB)\n- Bootable storage option\n\nProvides high-speed onboard storage solution.",
+      "type": "eMMC 5.1 Socket",
+      "capacity": "32GB/64GB/128GB options"
+    },
+    "13": {
+      "name": "MIPI CSI Camera",
+      "description": "MIPI CSI-2 camera interface",
+      "details": "MIPI CSI-2 camera interface.\n\nSpecifications:\n- 4-lane MIPI CSI-2\n- Supports up to 4K resolution\n- Compatible with standard MIPI camera modules\n- Data rate: up to 6Gbps\n\nUsed for computer vision applications.",
+      "type": "4-lane MIPI CSI-2",
+      "max_resolution": "4K"
+    },
+    "14": {
+      "name": "MIPI DSI Display",
+      "description": "MIPI DSI display interface",
+      "details": "MIPI DSI display panel interface.\n\nSpecifications:\n- 4-lane MIPI DSI\n- Supports up to 1080p resolution\n- Compatible with MIPI DSI displays\n- Touch panel support through I2C\n\nUsed for connecting LCD displays directly to the board.",
+      "type": "4-lane MIPI DSI",
+      "max_resolution": "1080p"
+    },
+    "15": {
+      "name": "PCIe M.2",
+      "description": "M.2 NVMe SSD expansion slot",
+      "details": "PCIe M.2 Key M slot.\n\nSpecifications:\n- PCIe 3.0 x4 interface\n- Supports NVMe SSDs\n- Up to 2TB capacity supported\n- Transfer rates up to 4GB/s\n\nProvides ultra-high-speed storage solution.",
+      "type": "M.2 Key M (2280)",
+      "interface": "PCIe 3.0 x4"
+    }
+  }
+}

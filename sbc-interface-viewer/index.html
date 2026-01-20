@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBC Interface Viewer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>SBC Interface Viewer</h1>
+                <p>选择单板计算机，点击接口编号查看详细信息</p>
+            </div>
+            <div class="header-controls">
+                <div class="sbc-selector">
+                    <select id="sbc-select">
+                        <option value="rock5t" selected>ROCK 5T</option>
+                        <option value="rock5b">ROCK 5B+</option>
+                        <option value="rpi4b">Raspberry Pi 4B</option>
+                    </select>
+                </div>
+                <div class="language-switcher">
+                    <button id="lang-zh" class="lang-btn active">中文</button>
+                    <button id="lang-en" class="lang-btn">English</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="left-panel">
+            <div class="svg-container">
+                <div class="svg-controls">
+                    <button id="flip-board" class="flip-btn">
+                        <span class="flip-icon">🔄</span>
+                        <span class="flip-text">查看背面</span>
+                    </button>
+                </div>
+                <object id="board-svg" data="boards/rock5t/rock5t-v.svg" type="image/svg+xml" width="100%" height="100%" style="max-width: 767px; max-height: 614px;">
+                    <div style="padding: 20px; text-align: center; color: #666;">
+                        <p>加载中...</p>
+                        <p style="font-size: 14px;">如果长时间未显示，请刷新页面</p>
+                    </div>
+                </object>
+            </div>
+            <div class="legend">
+                <h3>接口编号说明</h3>
+                <div id="legend-items">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="right-panel" id="info-panel">
+            <div class="welcome-message">
+                <h2>欢迎使用 SBC 接口查看器</h2>
+                <p>请选择单板计算机，然后点击电路板上的红色数字编号，查看对应接口的详细信息</p>
+                <button onclick="testClick()" style="margin-top: 10px; padding: 5px 10px; background: #40A778; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    测试显示接口1
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function testClick() {
+            if (window.viewer) {
+                window.viewer.showInterfaceInfo('1');
+            }
+        }
+    </script>
+    <script src="js/app.js?v=7"></script>
+</body>
+</html>

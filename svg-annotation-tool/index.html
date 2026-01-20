@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG 标注工具</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>SVG 标注工具</h1>
+        <p>加载 SVG 文件，添加数字标注，定义可点击区域，导出标注后的 SVG</p>
+    </div>
+    
+    <div class="container">
+        <div class="left-panel">
+            <div class="toolbar">
+                <input type="file" id="file-input" accept=".svg">
+                <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+                    加载 SVG
+                </button>
+                <button class="btn btn-secondary" onclick="clearAll()">
+                    清除所有标注
+                </button>
+                <button class="btn btn-success" onclick="exportSVG()">
+                    导出 SVG
+                </button>
+                <button class="btn btn-success" onclick="exportJSON()">
+                    导出配置
+                </button>
+                <button class="btn btn-info" onclick="exportSBCJSON()">
+                    导出SBC接口JSON
+                </button>
+                <button class="btn btn-primary" onclick="exportInvisibleSVG()">
+                    导出透明标号
+                </button>
+            </div>
+            
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="add">添加标注</button>
+                <button class="mode-btn" data-mode="edit">编辑区域</button>
+                <button class="mode-btn" data-mode="view">预览模式</button>
+            </div>
+            
+            <div class="svg-container">
+                <div class="zoom-controls">
+                    <button class="zoom-btn" onclick="svgAnnotator.zoomIn()" title="放大">
+                        🔍+
+                    </button>
+                    <button class="zoom-btn" onclick="svgAnnotator.zoomOut()" title="缩小">
+                        🔍-
+                    </button>
+                    <button class="zoom-btn" onclick="svgAnnotator.resetZoom()" title="重置">
+                        ⟲
+                    </button>
+                    <span class="zoom-level">100%</span>
+                </div>
+                <svg id="svg-canvas" width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+                    <text x="400" y="300" text-anchor="middle" fill="#999">请加载 SVG 文件</text>
+                </svg>
+                <div class="coordinates" id="coordinates">X: 0, Y: 0</div>
+            </div>
+        </div>
+        
+        <div class="right-panel">
+            <h3>标注列表</h3>
+            <div id="annotations-list">
+                <div class="welcome-message">
+                    <p>暂无标注</p>
+                    <p style="font-size: 14px; margin-top: 10px;">点击左侧 SVG 开始添加标注</p>
+                </div>
+            </div>
+            
+            <div class="export-options">
+                <h4>导出选项</h4>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="include-click-layer" checked>
+                        包含点击层
+                    </label>
+                </div>
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="include-numbers" checked>
+                        包含数字标注
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/svg-annotator.js"></script>
+</body>
+</html>
