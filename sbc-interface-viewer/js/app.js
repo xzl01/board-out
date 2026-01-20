@@ -8,8 +8,6 @@ class SBCInterfaceViewer {
         this.currentFlashOverlay = null; // 跟踪当前的遮罩元素
         this.isFront = true; // 当前显示的是正面还是反面
         
-        // 从URL参数获取初始设置
-        this.parseURLParams();
         this.sbcData = {
             'rock5b': {
                 svgFront: 'boards/rock5b/rock5b-plus.svg',
@@ -33,11 +31,17 @@ class SBCInterfaceViewer {
             }
         };
         
+        // 从URL参数获取初始设置
+        this.parseURLParams();
+        
         this.init();
     }
     
     init() {
         this.bindEvents();
+        // 更新UI以反映当前设置
+        document.getElementById('sbc-select').value = this.currentSBC;
+        this.loadBoard(); // 加载初始板卡
         this.loadInterfaces();
         this.updateLegend();
     }
