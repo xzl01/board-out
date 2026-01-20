@@ -14,64 +14,22 @@ class SBCInterfaceViewer {
             'rock5b': {
                 svgFront: 'boards/rock5b/rock5b-plus.svg',
                 svgBack: 'boards/rock5b/rock5b-plus-back.svg',
-                name: 'ROCK 5B+',
-                legend: [
-                    { number: 1, name: 'GPIO 40-pin' },
-                    { number: 2, name: 'eMMC Socket' },
-                    { number: 3, name: 'MIPI CSI CAM0' },
-                    { number: 4, name: 'MIPI CSI CAM1' },
-                    { number: 5, name: 'MIPI DSI' },
-                    { number: 6, name: 'PCIe M.2' },
-                    { number: 7, name: 'HDMI 2.1' },
-                    { number: 8, name: 'USB 3.2' },
-                    { number: 9, name: 'Ethernet' },
-                    { number: 10, name: 'Audio' },
-                    { number: 11, name: 'Power' },
-                    { number: 12, name: 'RTC' },
-                    { number: 13, name: 'Power Button' },
-                    { number: 14, name: 'IR Receiver' },
-                    { number: 15, name: 'Fan Header' }
-                ]
+                name: 'ROCK 5B+'
             },
             'rock5t': {
                 svgFront: 'boards/rock5t/rock5t-v.svg',
                 svgBack: 'boards/rock5t/rock5t-v-back.svg',
                 name: 'ROCK 5T',
-                legend: [
-                    { number: 1, name: 'GPIO 40-pin' },
-                    { number: 2, name: 'LED 指示灯' },
-                    { number: 3, name: 'USB Type-C' },
-                    { number: 4, name: 'SPI 禁用跳线' },
-                    { number: 5, name: '3.5mm 音频接口' },
-                    { number: 6, name: '电源按键' },
-                    { number: 7, name: 'PoE 模块接口' },
-                    { number: 8, name: 'HDMI 输出' },
-                    { number: 9, name: 'USB 3.0 接口' },
-                    { number: 10, name: 'USB 2.0 接口' },
-                    { number: 11, name: '千兆以太网' },
-                    { number: 12, name: 'eMMC 插座' },
-                    { number: 13, name: 'MIPI CSI 摄像头' },
-                    { number: 14, name: 'MIPI DSI 显示' },
-                    { number: 15, name: 'PCIe M.2' }
-                ]
             },
             'rpi4b': {
                 svgFront: 'boards/rpi4b/rpi4b.svg',
                 svgBack: 'boards/rpi4b/rpi4b-back.svg',
-                name: 'Raspberry Pi 4B',
-                legend: [
-                    { number: 1, name: 'GPIO 40-pin' },
-                    { number: 2, name: 'Micro HDMI 1' },
-                    { number: 3, name: 'Micro HDMI 2' },
-                    { number: 4, name: 'USB 3.0' },
-                    { number: 5, name: 'USB 2.0' },
-                    { number: 6, name: 'Ethernet' },
-                    { number: 7, name: 'Camera/CDSI' },
-                    { number: 8, name: 'Display/DSI' },
-                    { number: 9, name: 'Audio/Video' },
-                    { number: 10, name: 'Power' },
-                    { number: 11, name: 'Status LEDs' }
-                ]
+                name: 'Raspberry Pi 4B'
+            },
+            'a7s': {
+                svgFront: 'boards/a7s/a7s-v.svg',
+                svgBack: 'boards/a7s/a7s-back-v.svg',
+                name: 'A7S'
             }
         };
         
@@ -388,15 +346,38 @@ class SBCInterfaceViewer {
     }
     
     updateLegend() {
-        const legendItems = document.getElementById('legend-items');
-        const sbcInfo = this.sbcData[this.currentSBC];
+        const legendContainer = document.getElementById('legend-items');
         
-        legendItems.innerHTML = sbcInfo.legend.map(item => `
-            <div class="legend-item">
-                <div class="legend-number">${item.number}</div>
-                <span>${item.name}</span>
-            </div>
-        `).join('');
+        if (this.interfaces) {
+            // 直接使用 this.interfaces
+            const interfaces = this.interfaces;
+            
+            // 根据当前面过滤接口
+            const filteredInterfaces = {};
+            Object.keys(interfaces).forEach(id => {
+                const numId = parseInt(id);
+                // 正面显示 1-100，背面显示 101-199
+                if ((this.isFront && numId >= 1 && numId <= 100) || 
+                    (!this.isFront && numId >= 101 && numId <= 199)) {
+                    filteredInterfaces[id] = interfaces[id];
+                }
+            });
+            
+            const legendItems = Object.keys(filteredInterfaces).map(id => ({
+                number: parseInt(id),
+                name: filteredInterfaces[id].name || `接口 ${id}`
+            })).sort((a, b) => a.number - b.number);
+            
+            legendContainer.innerHTML = legendItems.map(item => `
+                <div class="legend-item">
+                    <div class="legend-number">${item.number}</div>
+                    <div class="legend-name">${item.name}</div>
+                </div>
+            `).join('');
+        } else {
+            // 加载中状态
+            legendContainer.innerHTML = '<div style="text-align: center; color: #999;">加载中...</div>';
+        }
     }
     
     switchLanguage(lang) {
